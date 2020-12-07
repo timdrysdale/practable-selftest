@@ -12,6 +12,7 @@ Just bringing these up to the top so that they don't get lost....
 - define an interface for a self test function in python (argument is test address, return is JSON report)
 - define test results format (ensure it can be marshalled by golang, e.g. have an array of test-result units)
 - capture some data from an experiment and develop a time-series extraction routine (pass it a tree describing which variables to collect, typically you want the time, and any other values which are relvant)
+- develop some tests that can use the time-series data as input
 - look at asyncio and websocket client in python to see how that all works
 - connect to a live experiment and start sending commands, collecting data, and implementing simple tests on the data you get back e.g. check motor stopped, start it, check motor spinning, check speed is within certain bound. Stop motor. Check motor stopped ... and so on ..
 
@@ -189,6 +190,16 @@ Therefore, test results need defining like this, with some thought given to the 
 
 These need some thinking about though (e.g. is the std deviation one just a range test that happens to use statistics before coming up with a number to compare to a range - probably, yes, so delete it)
 
+### Example tests
+
+Prep- stop the motor, calibrate if needed
+Is the disk stopped when the motor is off?
+Does the disk spin at the right speed +/- some tolerance when I set the speed to be 25%
+Does the disk spin at the right speed +/- some tolerance when I set the speed to be 50%
+Does the disk spin at the right speed +/- some tolerance when I set the speed to be 75%
+Does the disk spin at the right speed +/- some tolerance when I set the speed to be 100% (of safe continuous operating speed)
+Does the disk spin down from 100% to zero, when I turn the motor off, in the right amount of time, plus or minus some tolerance?
+Post - put experiment into resting state - motor off.
 
 ## Roadmap items
 
